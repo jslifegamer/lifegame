@@ -145,9 +145,9 @@ export default {
     }
   },
   created() {
-    this.game = new LifeGame(15, 15)
-    this.table = this.game.getTableView()
-    this.initState()
+    this.game = new LifeGame(15, 15);
+    this.table = this.game.getTableView();
+    this.initState();
   },
   methods: {
     initState: function(lifeCell) {
@@ -156,20 +156,20 @@ export default {
           for (var j = 0; j < this.table[i].length; j++) {
             for (var k = 0; k < lifeCell.length; k++) {
               if (i === lifeCell[k][0] && j === lifeCell[k][1]) {
-                this.table[i][j] = new Cell(1, lifeCell[k][0], lifeCell[k][1])
+                this.table[i][j] = new Cell(1, lifeCell[k][0], lifeCell[k][1]);
               }
             }
           }
         }
       }
-      this.table = this.game.getEmptyView()
+      this.table = this.game.getEmptyView();
     },
     addLife: function(indexj) {
-      var e = e || window.event
-      var indexi = e.currentTarget.getAttribute('data-index')
-      var curCell = this.table[indexi][indexj]
+      var e = e || window.event;
+      var indexi = e.currentTarget.getAttribute('data-index');
+      var curCell = this.table[indexi][indexj];
       if (curCell.state === 0) {
-        curCell.state = 1
+        curCell.state = 1;
       }
     },
     startPlay: function() {
@@ -184,22 +184,22 @@ export default {
         //             cell.nextState(this.table)
         //          }
         //     }
-        this.table = this.game.dynamic(this.table)
-      }, this.selected)
+        this.table = this.game.dynamic(this.table);
+      }, this.selected);
     },
     rePlay: function() {
-      this.table = this.game.getEmptyView()
-      clearInterval(this.timer)
+      this.table = this.game.getEmptyView();
+      clearInterval(this.timer);
       //  this.initState()
     },
      pausePlay: function() {
-      clearInterval(this.timer)
+      clearInterval(this.timer);
     },
     changeSpeed(event) {
-      this.selected = event.target.value
-      clearInterval(this.timer)
-      this.startPlay(this.selected)
-      clearInterval(this.timer)
+      this.selected = event.target.value;
+      clearInterval(this.timer);
+      this.startPlay(this.selected);
+      clearInterval(this.timer);
     }
   }
 }
