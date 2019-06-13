@@ -39,6 +39,22 @@ class LifeGame {
     this.xlen = xlen;
     this.ylen = ylen;
   }
+    initState1(lifeCell) {
+      var table = [];
+      for (var i = 0; i < 3; i++) {
+          table[i] = [];
+          for (var j = 0; j < 3; j++) {
+            for (var k = 0; k < lifeCell.length; k++) {
+              if (i === lifeCell[k][0] && j === lifeCell[k][1]) {
+               table[i][j] = new Cell(1, lifeCell[k][0], lifeCell[k][1])
+              }else{
+                table[i][j] = new Cell(0, i, j);
+              }
+            }
+          }
+      }
+      return table;
+    }
   getEmptyView(){
     var table = [];
     for (var i = 0; i < this.xlen; i++) {

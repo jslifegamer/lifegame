@@ -15,7 +15,7 @@
       <div class="speed">
         <div class="line">游戏界面选择</div>
         <label>line</label><input class="controlSize" type="number" v-model="rowTemp">
-        <label>row</label><input  class="controlSize"type="number" v-model="columnTemp">
+        <label>row</label><input class="controlSize" type="number" v-model="columnTemp">
         <button class="size" v-on:click="submit">Submit</button>
 
       </div>
@@ -98,7 +98,7 @@ td {
   border: none;
   height: 40px;
   border-radius: 15px;
-  background-color:orangered;
+  background-color: orangered;
   color: #fff;
 }
 .random {
@@ -147,12 +147,7 @@ td {
 <script>
 import { LifeGame, Cell } from '../lifeGame.js'
 export default {
-  // props: {
-  //   row: Number,
-  //   columns: Number
-  // },
   data() {
-    //    const table =  new LifeGame(3,3).getTableView();
     return {
       game: {},
       table: [],
@@ -177,15 +172,13 @@ export default {
           value: '200'
         }
       ],
-      selected: '1000'
+      selected: '200'
     }
   },
   created() {
-    // this.game = new LifeGame(15, 15)
     this.game = new LifeGame(this.rowTemp, this.columnTemp)
     this.table = this.game.getTableView()
-    this.initState()
-    console.log(this.rowTemp)
+    this.table = this.initState()
   },
   methods: {
     initState: function(lifeCell) {
@@ -199,16 +192,14 @@ export default {
             }
           }
         }
+        return this.table
       }
       this.table = this.game.getEmptyView()
+      return this.table
     },
     submit: function() {
-      //  this.rowTemp=10;
-      //  this.columnTemp=10;
-      console.log(this.rowTemp)
       this.game = new LifeGame(this.rowTemp, this.columnTemp)
       this.table = this.game.getEmptyView()
-      //  this.columnIndex=parseInt(this.columnTemp)
     },
     addLife: function(indexj) {
       var e = e || window.event
@@ -227,16 +218,6 @@ export default {
     startPlay: function() {
       clearInterval(this.timer)
       this.timer = setInterval(() => {
-        //    let table= []
-        //     for(var i=0;i<this.game.xlen;i++){
-        //         table[i] =[];
-        //           for(var j=0;j<this.game.ylen;j++){
-        //             const oldCell = this.table[i][j];
-        //             const cell = new Cell(oldCell.state,i,j);
-        //             table[i][j] = cell;
-        //             cell.nextState(this.table)
-        //          }
-        //     }
         this.table = this.game.dynamic(this.table)
       }, this.selected)
     },
@@ -244,7 +225,6 @@ export default {
       clearInterval(this.timer)
       this.table = this.game.getEmptyView()
       clearInterval(this.timer)
-      //  this.initState()
     },
     pausePlay: function() {
       clearInterval(this.timer)

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
    
-    <Game :row="rowIndex" :columns="columnIndex"/>
+    <Game/>
   
   </div>
 </template>
@@ -11,10 +11,7 @@ import Game from './components/Game.vue'
 
 export default {
   data() {
-    return {
-      rowIndex:15,
-      columnIndex:15
-    };
+    return {}
   },
 
   name: 'app',
