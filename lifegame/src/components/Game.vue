@@ -1,105 +1,140 @@
 <template>
-    <div class="content">
-        <div class="leftAction">
-            <div class="logo"> <img src="../../src/assets/logo.png"></div>
-            <h1>LlifeGame</h1>
-        <table>
-            <tbody>
-                <tr v-for="(rows,i) in table" :key="i">
-                    <td v-for="(cell,j) in rows" :key="j" :data-index="i" :class="cell.state===0?'dead':'live'" v-on:click="addLife(j)"></td>
-                </tr>
-            </tbody>
-        </table>
-        </div>
-        <div class="rightAction">
-            <div class="speed">
-                <div class="line">速度选择</div>
+  <div class="content">
+    <div class="leftAction">
+      <div class="logo"> <img src="../../src/assets/logo.png"></div>
+      <h1>LlifeGame</h1>
+      <table>
+        <tbody>
+          <tr v-for="(rows,i) in table" :key="i">
+            <td v-for="(cell,j) in rows" :key="j" :data-index="i" :class="cell.state===0?'dead':'live'" v-on:click="addLife(j)"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="rightAction">
+      <div class="speed">
+        <div class="line">游戏界面选择</div>
+        <label>line</label><input class="controlSize" type="number" v-model="rowTemp">
+        <label>row</label><input  class="controlSize"type="number" v-model="columnTemp">
+        <button class="size" v-on:click="submit">Submit</button>
+
+      </div>
+
+      <div class="speed">
+        <div class="line">速度选择</div>
         <Select class="controlSpeed" v-model="selected" @change="changeSpeed($event)">
-            <Option v-for="item in stateList" :value="item.value" :key="item.value">
-                {{item.value }}
-            </Option>
+          <Option v-for="item in stateList" :value="item.value" :key="item.value">
+            {{item.value }}
+          </Option>
         </Select>
-        </div>
-        <div>
-             <div class="line">按钮操作区</div>
+      </div>
+      <div>
+        <div class="line">按钮操作区</div>
+        <button class="random" v-on:click="randomPlay">Random</button>
         <button class="start" v-on:click="startPlay">Start</button>
         <button class="pause" v-on:click="pausePlay">Pause</button>
         <button class="replay" v-on:click="rePlay">RePlay</button>
-        </div>
-          <img src="../../src/assets/top.gif">
-        </div>
+      </div>
+      <img src="../../src/assets/top.gif">
     </div>
+  </div>
+
 </template>
 <style scoped>
-.content{
-    width:100%;
-    margin:0 auto;
-    display: flex;
-    flex-direction: row;
+.content {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
 }
-table{
-    margin:0 auto;
+table {
+  margin: 0 auto;
 }
 td {
   width: 30px;
   height: 30px;
   border: 1px solid #eaeaea;
 }
-.leftAction{
-    width:60%;
+.leftAction {
+  width: 60%;
 }
-.logo{
-    width:50%;
-    height:80px;
+.logo {
+  width: 40%;
+  height: 80px;
 }
-.logo img{
-    width:100%;
-height:80px;
+.logo img {
+  width: 100%;
+  height: 80px;
 }
-.rightAction{
-    width:30%;
-    padding: 0 10% 0 0;
-    margin:0 auto;
-    display: flex;
-    flex-direction: column;
+.rightAction {
+  width: 30%;
+  padding: 0 10% 0 0;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
 }
-.speed{
- margin-top: 15%;
+.speed {
+  margin-top: 5%;
 }
-.line{
-     border-bottom: 2px solid #eaeaea;
+.line {
+  border-bottom: 2px solid #eaeaea;
 }
-.controlSpeed{
-  margin: 10% 0;
-    width:60%;
-    height:40px;
-    border-radius:10px;
+.controlSize {
+  margin: 5% 0;
+  width: 40%;
+  height: 40px;
+  border-radius: 10px;
+  /* border:none; */
+  outline: none;
 }
-.start{
-    margin:5% 0;
-    width:60%;
-    border: none;
-    height:40px;
-    border-radius:15px;
-    background-color: lawngreen;
-     color:#fff;
+.controlSpeed {
+  margin: 5% 0;
+  width: 60%;
+  height: 40px;
+  border-radius: 10px;
 }
-.replay{
-     margin:5% 0;
-    width:60%;
-     border: none;
-    height:40px;
-    border-radius:15px;
-    background-color: indianred;
-     color:#fff;
+.size {
+  width: 60%;
+  border: none;
+  height: 40px;
+  border-radius: 15px;
+  background-color:orangered;
+  color: #fff;
 }
-.pause{
-    width:60%;
-     border: none;
-    height:40px;
-    border-radius:15px;
-    background-color:red;
-    color:#fff;
+.random {
+  margin: 5% 0 0 0;
+  width: 60%;
+  border: none;
+  height: 40px;
+  border-radius: 15px;
+  background-color: deepskyblue;
+  color: #fff;
+}
+.start {
+  margin: 5% 0;
+  width: 60%;
+  border: none;
+  height: 40px;
+  border-radius: 15px;
+  background-color: lawngreen;
+  color: #fff;
+}
+.replay {
+  margin: 5% 0;
+  width: 60%;
+  border: none;
+  height: 40px;
+  border-radius: 15px;
+  background-color: indianred;
+  color: #fff;
+}
+.pause {
+  width: 60%;
+  border: none;
+  height: 40px;
+  border-radius: 15px;
+  background-color: red;
+  color: #fff;
 }
 .live {
   border-radius: 50%;
@@ -112,17 +147,18 @@ height:80px;
 <script>
 import { LifeGame, Cell } from '../lifeGame.js'
 export default {
-  prop: {
-    rows: Number,
-    columns: Number
-  },
+  // props: {
+  //   row: Number,
+  //   columns: Number
+  // },
   data() {
     //    const table =  new LifeGame(3,3).getTableView();
     return {
       game: {},
       table: [],
+      rowTemp: 15,
+      columnTemp: 15,
       timer: null,
-
       stateList: [
         {
           index: '1',
@@ -145,9 +181,11 @@ export default {
     }
   },
   created() {
-    this.game = new LifeGame(15, 15);
-    this.table = this.game.getTableView();
-    this.initState();
+    // this.game = new LifeGame(15, 15)
+    this.game = new LifeGame(this.rowTemp, this.columnTemp)
+    this.table = this.game.getTableView()
+    this.initState()
+    console.log(this.rowTemp)
   },
   methods: {
     initState: function(lifeCell) {
@@ -156,23 +194,38 @@ export default {
           for (var j = 0; j < this.table[i].length; j++) {
             for (var k = 0; k < lifeCell.length; k++) {
               if (i === lifeCell[k][0] && j === lifeCell[k][1]) {
-                this.table[i][j] = new Cell(1, lifeCell[k][0], lifeCell[k][1]);
+                this.table[i][j] = new Cell(1, lifeCell[k][0], lifeCell[k][1])
               }
             }
           }
         }
       }
-      this.table = this.game.getEmptyView();
+      this.table = this.game.getEmptyView()
+    },
+    submit: function() {
+      //  this.rowTemp=10;
+      //  this.columnTemp=10;
+      console.log(this.rowTemp)
+      this.game = new LifeGame(this.rowTemp, this.columnTemp)
+      this.table = this.game.getEmptyView()
+      //  this.columnIndex=parseInt(this.columnTemp)
     },
     addLife: function(indexj) {
-      var e = e || window.event;
-      var indexi = e.currentTarget.getAttribute('data-index');
-      var curCell = this.table[indexi][indexj];
+      var e = e || window.event
+      var indexi = e.currentTarget.getAttribute('data-index')
+      var curCell = this.table[indexi][indexj]
       if (curCell.state === 0) {
-        curCell.state = 1;
+        curCell.state = 1
       }
     },
+    randomPlay: function() {
+      this.table = this.game.getTableView()
+      this.timer = setInterval(() => {
+        this.table = this.game.dynamic(this.table)
+      }, this.selected)
+    },
     startPlay: function() {
+      clearInterval(this.timer)
       this.timer = setInterval(() => {
         //    let table= []
         //     for(var i=0;i<this.game.xlen;i++){
@@ -184,22 +237,23 @@ export default {
         //             cell.nextState(this.table)
         //          }
         //     }
-        this.table = this.game.dynamic(this.table);
-      }, this.selected);
+        this.table = this.game.dynamic(this.table)
+      }, this.selected)
     },
     rePlay: function() {
-      this.table = this.game.getEmptyView();
-      clearInterval(this.timer);
+      clearInterval(this.timer)
+      this.table = this.game.getEmptyView()
+      clearInterval(this.timer)
       //  this.initState()
     },
-     pausePlay: function() {
-      clearInterval(this.timer);
+    pausePlay: function() {
+      clearInterval(this.timer)
     },
     changeSpeed(event) {
-      this.selected = event.target.value;
-      clearInterval(this.timer);
-      this.startPlay(this.selected);
-      clearInterval(this.timer);
+      this.selected = event.target.value
+      clearInterval(this.timer)
+      this.startPlay(this.selected)
+      clearInterval(this.timer)
     }
   }
 }
